@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/material.dart';
 import 'package:repmusic/API/API.dart';
+import 'package:repmusic/screens/more_page.dart';
 import 'package:repmusic/widgets/song_bar.dart';
 import 'package:repmusic/widgets/spinner.dart';
 
@@ -24,6 +26,22 @@ class _HomePageState extends State<HomePage> {
             fontFamily: 'Quicksand',
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              FluentIcons.settings_24_filled,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MorePage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -98,4 +116,5 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 }

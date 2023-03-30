@@ -52,7 +52,7 @@ class AudioAppState extends State<AudioApp> {
           builder: (context, snapshot) {
             final state = snapshot.data;
             if (state?.sequence.isEmpty ?? true) {
-              return const SizedBox();
+              return const SizedBox(); 
             }
             final metadata = state!.currentSource!.tag;
             final songLikeStatus = ValueNotifier<bool>(

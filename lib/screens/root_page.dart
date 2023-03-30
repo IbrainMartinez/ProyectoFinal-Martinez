@@ -3,6 +3,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart' hide context;
+import 'package:repmusic/LoginF/login.dart';
 import 'package:repmusic/screens/home_page.dart';
 import 'package:repmusic/screens/more_page.dart';
 import 'package:repmusic/screens/player.dart';
@@ -60,6 +61,9 @@ class AppState extends State<Repmusic> {
               case '/more':
                 builder = (BuildContext context) => MorePage();
                 break;
+              case '/login':
+                builder = (BuildContext context) => LoginPage();
+                break;
               default:
                 throw Exception('Invalid route: ${settings.name}');
             }
@@ -76,27 +80,24 @@ class AppState extends State<Repmusic> {
 
   Widget getFooter() {
     final items = List.generate(
-      4,
+      3,
       (index) {
         final iconData = [
           FluentIcons.home_24_regular,
           FluentIcons.search_24_regular,
           FluentIcons.heart_24_regular,
-          FluentIcons.more_horizontal_24_regular,
         ][index];
 
         final titles = [
           'Inicio',
           'Buscador',
           'Favoritos',
-          'Ajustes',
         ][index];
 
         final routeName = [
           '/',
           '/search',
           '/userListMusic',
-          '/more',
         ][index];
 
         return BottomNavBarItem(
@@ -306,13 +307,13 @@ class AppState extends State<Repmusic> {
         topRight: Radius.circular(20),
       ),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 100),
+        duration: const Duration(milliseconds: 5000),
         height: 75,
         child: CustomAnimatedBottomBar(
           backgroundColor: colorNav,
           selectedIndex: activeTabIndex.value,
           onItemSelected: (index) => setState(() {
-            activeTabIndex.value = index;
+            activeTabIndex.value = index; //indica la posicion del nav
             _navigatorKey.currentState!.pushReplacementNamed(activeTab.value);
           }),
           items: items,

@@ -1,13 +1,13 @@
 import 'dart:async';
-
 import 'package:audio_session/audio_session.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:repmusic/LoginF/register.dart';
 import 'package:repmusic/screens/more_page.dart';
-import 'package:repmusic/screens/root_page.dart';
 import 'package:repmusic/services/audio_manager.dart';
 
 GetIt getIt = GetIt.instance;
@@ -25,7 +25,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Repmusic(),
+
+      home: Register(),
+      // home: Repmusic(),
     );
   }
 }
@@ -33,6 +35,7 @@ class _MyAppState extends State<MyApp> {
 void main() async {
   await initialisation();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

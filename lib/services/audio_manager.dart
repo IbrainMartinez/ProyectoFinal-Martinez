@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:repmusic/API/API.dart';
 import 'package:repmusic/screens/more_page.dart';
-import 'package:repmusic/services/data_manager.dart';
 import 'package:repmusic/utilities/mediaitem.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -83,14 +82,14 @@ Future changeShuffleStatus() async {
   shuffleNotifier.value = !shuffleNotifier.value;
 }
 
-void changeAutoPlayNextStatus() {
-  playNextSongAutomatically.value = !playNextSongAutomatically.value;
-  addOrUpdateData(
-    'settings',
-    'playNextSongAutomatically',
-    playNextSongAutomatically.value,
-  );
-}
+// void changeAutoPlayNextStatus() {
+//   playNextSongAutomatically.value = !playNextSongAutomatically.value;
+//   addOrUpdateData(
+//     'settings',
+//     'playNextSongAutomatically',
+//     playNextSongAutomatically.value,
+//   );
+// }
 
 Future changeLoopStatus() async {
   repeatNotifier.value = !repeatNotifier.value;

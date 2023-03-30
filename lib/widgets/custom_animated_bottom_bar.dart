@@ -8,7 +8,7 @@ import 'package:repmusic/widgets/marque.dart';
 
 class CustomAnimatedBottomBar extends StatelessWidget {
   CustomAnimatedBottomBar({
-    super.key,
+    // super.key,
     this.selectedIndex = 0,
     this.height = 60,
     this.showElevation = true,

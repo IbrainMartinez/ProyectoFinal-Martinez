@@ -1,8 +1,7 @@
 name: repmusic
 description: proyecto
-
+version: 4.7.0+47
 publish_to: 'none'
-version: 4.7.0+47 # run update.sh after changing the version
 
 environment:
   sdk: '>=2.19.3 <3.0.0'
@@ -11,15 +10,18 @@ environment:
 dependencies:
   audio_session: ^0.1.13
   cached_network_image: ^3.2.3
+  cloud_firestore: ^4.4.5
   dynamic_color: ^1.6.2
   file_picker: ^5.2.5
+  firebase_auth: ^4.3.0
+  firebase_core: ^2.8.0
   fluentui_system_icons: ^1.1.190
-  flutter:
-    sdk: flutter
   flutter_displaymode: ^0.5.0
   flutter_downloader: ^1.10.2
+  flutter_secure_storage: ^8.0.0
   fluttertoast: ^8.2.1
   get_it: ^7.2.0
+  google_nav_bar: ^5.0.6
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   http: ^0.13.5
@@ -29,9 +31,15 @@ dependencies:
   on_audio_query:
     path: ./packages/on_audio_query/on_audio_query
   permission_handler: ^10.2.0
+  pdf: ^3.9.0
+  printing: ^5.10.1
   rxdart: ^0.27.7
   url_launcher: ^6.1.10
   youtube_explode_dart: ^1.12.4
+  image_picker: ^0.8.7+1
+  firebase_storage: ^11.0.16
+  
+
 
 dev_dependencies:
   flutter_launcher_icons: ^0.12.0
