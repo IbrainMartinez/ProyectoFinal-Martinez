@@ -190,17 +190,16 @@ class _LoginPageState extends State<LoginPage> {
                                 minWidth:
                                     150, // Modificar la propiedad para ajustar al ancho de la pantalla
                                 onPressed: () {
-                                  setState(() {
-                                    visible = true;
-                                  });
-                                  signIn(
-                                    emailController.text,
-                                    passwordController.text,
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Register(),
+                                    ),
                                   );
                                 },
-                                color: colorNav,
+                                color: colorAppBar,
                                 child: const Text(
-                                  'Logeate',
+                                  'Registrate',
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,
@@ -218,16 +217,17 @@ class _LoginPageState extends State<LoginPage> {
                                 minWidth:
                                     150, // Modificar la propiedad para ajustar al ancho de la pantalla
                                 onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Register(),
-                                    ),
+                                  setState(() {
+                                    visible = true;
+                                  });
+                                  signIn(
+                                    emailController.text,
+                                    passwordController.text,
                                   );
                                 },
-                                color: colorAppBar,
+                                color: colorNav,
                                 child: const Text(
-                                  'Registrate',
+                                  'Logueate',
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.white,
@@ -246,6 +246,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
+      bottomNavigationBar: null,
     );
   }
 

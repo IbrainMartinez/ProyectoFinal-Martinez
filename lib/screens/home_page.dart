@@ -1,4 +1,3 @@
-
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:repmusic/API/API.dart';
@@ -28,7 +27,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               FluentIcons.settings_24_filled,
               color: Colors.white,
             ),
@@ -116,5 +115,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 }

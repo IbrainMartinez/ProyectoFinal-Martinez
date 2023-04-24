@@ -5,7 +5,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart' hide context;
 import 'package:repmusic/LoginF/login.dart';
 import 'package:repmusic/screens/home_page.dart';
-import 'package:repmusic/screens/more_page.dart';
+
 import 'package:repmusic/screens/player.dart';
 import 'package:repmusic/screens/search_page.dart';
 import 'package:repmusic/screens/user_liked_songs_page.dart';
@@ -57,13 +57,7 @@ class AppState extends State<Repmusic> {
                 break;
               case '/userListMusic':
                 builder = (BuildContext context) => const UserLikedSongs();
-                break;
-              case '/more':
-                builder = (BuildContext context) => MorePage();
-                break;
-              case '/login':
-                builder = (BuildContext context) => LoginPage();
-                break;
+                break;  
               default:
                 throw Exception('Invalid route: ${settings.name}');
             }

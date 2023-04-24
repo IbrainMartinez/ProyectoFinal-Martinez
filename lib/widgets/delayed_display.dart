@@ -41,32 +41,30 @@ class DelayedDisplay extends StatefulWidget {
 
 class _DelayedDisplayState extends State<DelayedDisplay>
     with TickerProviderStateMixin {
-  /// Controller of the opacity animation
+
   late AnimationController _opacityController;
 
-  /// Sliding Animation offset
+
   late Animation<Offset> _slideAnimationOffset;
 
-  /// Timer used to delayed animation
   Timer? _timer;
 
-  /// Simple getter for widget's delay
+
   Duration get delay => widget.delay;
 
-  /// Simple getter for widget's opacityTransitionDuration
+
   Duration get opacityTransitionDuration => widget.fadingDuration;
 
-  /// Simple getter for widget's slidingCurve
+
   Curve get slidingCurve => widget.slidingCurve;
 
-  /// Simple getter for widget's beginOffset
+
   Offset get beginOffset => widget.slidingBeginOffset;
 
-  /// Simple getter for widget's fadeIn
+
   bool get fadeIn => widget.fadeIn;
 
-  /// Initialize controllers, curve and offset with given parameters or default values
-  /// Use a Timer in order to delay the animations if needed
+
   @override
   void initState() {
     super.initState();
@@ -89,7 +87,6 @@ class _DelayedDisplayState extends State<DelayedDisplay>
     _runFadeAnimation();
   }
 
-  /// Dispose the opacity controller
   @override
   void dispose() {
     _opacityController.dispose();
@@ -97,8 +94,6 @@ class _DelayedDisplayState extends State<DelayedDisplay>
     super.dispose();
   }
 
-  /// Whenever the widget is updated and that fadeIn is different from the oldWidget, triggers the fade in
-  /// or out animation.
   @override
   void didUpdateWidget(DelayedDisplay oldWidget) {
     super.didUpdateWidget(oldWidget);

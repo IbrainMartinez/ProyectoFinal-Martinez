@@ -27,7 +27,7 @@ class MorePage extends StatefulWidget {
 
 const colorNav = Color(0xFF1B0161);
 const colorAppBar = Color(0xFF6052a6);
-const bottomNavigationBar = false;
+// const bottomNavigationBar = false;
 
 // mandar para reporte
 
@@ -48,6 +48,7 @@ class _MorePageState extends State<MorePage> {
           ),
         ),
       ),
+      bottomNavigationBar: null,
       body: SingleChildScrollView(child: SettingsCards()),
     );
   }
@@ -118,8 +119,21 @@ class SettingsCards extends StatelessWidget {
               title: const Text(
                 'Cerrar Sesión',
               ),
-              onTap: () {
-                logout(context);
+              onTap: () async {
+                // Borrar los valores almacenados en el almacenamiento seguro
+                final storage = const FlutterSecureStorage();
+                await storage.deleteAll();
+
+                // Después de eliminar los valores, se realiza la lógica para cerrar la sesión.
+                // En este caso, estamos cerrando la sesión de FirebaseAuth y navegando a la página de inicio de sesión.
+                const CircularProgressIndicator();
+                await FirebaseAuth.instance.signOut();
+                await Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                );
               },
             ),
           ),
@@ -133,21 +147,26 @@ class SettingsCards extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text('Confirmar eliminación de cuenta'),
-                    content:
-                        Text('¿Estás seguro que quieres eliminar tu cuenta?'),
+                    title: const Text('Confirmar eliminación de cuenta'),
+                    content: const Text(
+                        '¿Estás seguro que quieres eliminar tu cuenta?'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('Cancelar'),
+                        child: const Text('Cancelar'),
                       ),
                       TextButton(
                         onPressed: () async {
                           // Llama a la función para eliminar la cuenta
                           await eliminarCuenta();
-                          Navigator.pop(context);
+                          await Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
                         },
-                        child: Text('Eliminar cuenta'),
+                        child: const Text('Eliminar cuenta'),
                       ),
                     ],
                   ),
@@ -155,7 +174,10 @@ class SettingsCards extends StatelessWidget {
               },
               title: Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12.0,
+                  horizontal: 16.0,
+                ),
                 child: const Text(
                   'Eliminar cuenta',
                   style:
@@ -169,23 +191,7 @@ class SettingsCards extends StatelessWidget {
     );
   }
 
-  Future<void> logout(BuildContext context) async {
-    // Borrar los valores almacenados en el almacenamiento seguro
-    final storage = const FlutterSecureStorage();
-    await storage.deleteAll();
-
-    // Después de eliminar los valores, se realiza la lógica para cerrar la sesión.
-    // En este caso, estamos cerrando la sesión de FirebaseAuth y navegando a la página de inicio de sesión.
-    const CircularProgressIndicator();
-    await FirebaseAuth.instance.signOut();
-    await Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LoginPage(),
-      ),
-    );
-  }
-
+// funcionest
   Future pdfInvoiceDownload(
     BuildContext context,
     String? title,
@@ -207,13 +213,8 @@ class SettingsCards extends StatelessWidget {
 
     final pdf = pw.Document();
 
-    // add network image
+    //
     final netImage = await networkImage('https://www.nfet.net/nfet.jpg');
-
-    // add asset image, IMPORTANT! Using assets will not work in Test/Run mode you can only test it using Web Publishing mode or using an actual device!
-    /*final bytes =
-        (await rootBundle.load('assets/images/demo.png')).buffer.asUint8List();
-    final image = pw.MemoryImage(bytes);*/
 
     pdf.addPage(
       pw.Page(
@@ -295,16 +296,16 @@ class SettingsCards extends StatelessWidget {
     await Printing.layoutPdf(
         onLayout: (PdfPageFormat format) async => pdfSaved);
   }
-}
 
-Future<void> eliminarCuenta() async {
-  try {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      await user.delete();
-      await FirebaseAuth.instance.signOut();
+  Future<void> eliminarCuenta() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        await user.delete();
+        await FirebaseAuth.instance.signOut();
+      }
+    } catch (e) {
+      print('Error al eliminar la cuenta: $e');
     }
-  } catch (e) {
-    print('Error al eliminar la cuenta: $e');
   }
 }

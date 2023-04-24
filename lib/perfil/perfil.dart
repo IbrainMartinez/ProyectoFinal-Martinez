@@ -102,16 +102,53 @@ class _PerfilState extends State<Perfil> {
                   return Icon(Icons.error_outline);
                 }
                 final imageUrl = snapshot.data!;
-                return CircleAvatar(
-                  radius: 100,
-                  backgroundImage: NetworkImage(imageUrl),
+                return Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: colorAppBar,
+                      width: 5,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    radius: 100,
+                    backgroundImage: NetworkImage(imageUrl),
+                  ),
                 );
               },
             ),
             SizedBox(height: 20),
-            if (_user != null) Text('User ID: ${_user!.uid}'),
-            if (_userData != null) Text('Name: ${_userData!['nombre']}'),
-            if (_userData != null) Text('Email: ${_userData!['email']}'),
+            Column(
+              children: [
+                if (_userData != null)
+                  Text(
+                    '${_userData!['nombre']}',
+                    style: const TextStyle(
+                      fontSize: 24, // tamaño de fuente más grande
+                      fontWeight: FontWeight.bold,
+                      color: colorNav, // fuente en negrita
+                    ),
+                  ),
+                if (_user != null)
+                  Text(
+                    'User ID: ${_user!.uid}',
+                    textAlign: TextAlign.center, // texto centrado
+                    style: TextStyle(
+                      fontSize: 12, // tamaño de fuente más pequeño
+                    ),
+                  ),
+                if (_userData != null)
+                  Text(
+                    'Email: ${_userData!['email']}',
+                    textAlign: TextAlign.center, // texto centrado
+                    style: TextStyle(
+                      fontSize: 12, // tamaño de fuente igual que el anterior
+                    ),
+                  ),
+              ],
+            ),
+            SizedBox(height: 20),
             Row(
               children: [
                 SizedBox(width: 30),
@@ -120,6 +157,10 @@ class _PerfilState extends State<Perfil> {
                     onPressed: _uploadImage,
                     style: ElevatedButton.styleFrom(
                       primary: colorAppBar,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // borde redondeado
+                      ),
                     ),
                     child: Text('Subir imagen'),
                   ),
@@ -134,6 +175,10 @@ class _PerfilState extends State<Perfil> {
                     },
                     style: ElevatedButton.styleFrom(
                       primary: colorNav,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(20), // borde redondeado
+                      ),
                     ),
                     child: Text('Editar datos'),
                   ),

@@ -55,22 +55,30 @@ class _RegisterState extends State<Register> {
                   child: Form(
                     key: _formkey,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 80,
+                          height: 75,
                         ),
                         const Text(
-                          'Registrate Ahora',
+                          'Aun no tienes Cuenta?',
+                          textAlign: TextAlign.left,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: colorNav,
-                            fontSize: 40,
+                            fontSize: 35,
                           ),
                         ),
                         const SizedBox(
                           height: 10,
+                        ),
+                        const Text(
+                          'Registrate ahora es Gratis!!',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                          ),
                         ),
                         const SizedBox(
                           height: 50,
@@ -275,7 +283,7 @@ class _RegisterState extends State<Register> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 42),
                               child: const Text(
-                                'Logeate',
+                                'Logueate',
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Colors.white,
