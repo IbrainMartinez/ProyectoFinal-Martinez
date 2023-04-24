@@ -127,6 +127,7 @@ class SettingsCards extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
           child: Card(
+            elevation: 2.0,
             child: ListTile(
               onTap: () {
                 showDialog(
@@ -153,11 +154,12 @@ class SettingsCards extends StatelessWidget {
                 );
               },
               title: Container(
+                alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                child: Text(
+                child: const Text(
                   'Eliminar cuenta',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
