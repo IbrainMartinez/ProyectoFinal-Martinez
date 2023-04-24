@@ -20,7 +20,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +40,10 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
-                          height: 40,
+                          height: 100,
                         ),
                         const Text(
-                          "Iniciar Sesión",
+                          'Iniciar Sesión',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -56,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                           height: 10,
                         ),
                         const Text(
-                          "Bienvenido,",
+                          'Bienvenido,',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Colors.black,
@@ -64,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         const Text(
-                          "Te estamos esperando",
+                          'Te estamos esperando',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Colors.black,
@@ -82,28 +81,31 @@ class _LoginPageState extends State<LoginPage> {
                             hintText: 'Correo Electrónico',
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
-                                left: 14.0, bottom: 8.0, top: 8.0),
+                              left: 14.0,
+                              bottom: 8.0,
+                              top: 8.0,
+                            ),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "El correo electrónico no puede estar vacío";
+                              return 'El correo electrónico no puede estar vacío';
                             }
                             if (!RegExp(
-                                    "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                                .hasMatch(value)) {
-                              return ("Por favor ingrese un correo electrónico válido");
+                              '^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]',
+                            ).hasMatch(value)) {
+                              return 'Por favor ingrese un correo electrónico válido';
                             } else {
                               return null;
                             }
@@ -113,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         TextFormField(
@@ -121,40 +123,46 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: _isObscure3,
                           decoration: InputDecoration(
                             suffixIcon: IconButton(
-                                icon: Icon(_isObscure3
+                              icon: Icon(
+                                _isObscure3
                                     ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(() {
-                                    _isObscure3 = !_isObscure3;
-                                  });
-                                }),
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure3 = !_isObscure3;
+                                });
+                              },
+                            ),
                             filled: true,
                             fillColor: Colors.white,
                             hintText: 'Contraseña',
                             enabled: true,
                             contentPadding: const EdgeInsets.only(
-                                left: 14.0, bottom: 8.0, top: 15.0),
+                              left: 14.0,
+                              bottom: 8.0,
+                              top: 15.0,
+                            ),
                             border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: Colors.grey),
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                           validator: (value) {
-                            RegExp regex = RegExp(r'^.{6,}$');
+                            final regex = RegExp(r'^.{6,}$');
                             if (value!.isEmpty) {
-                              return "La contraseña no puede estar vacía";
+                              return 'La contraseña no puede estar vacía';
                             }
                             if (!regex.hasMatch(value)) {
-                              return ("Por favor ingrese una contraseña válida, con al menos 6 caracteres");
+                              return 'Por favor ingrese una contraseña válida, con al menos 6 caracteres';
                             } else {
                               return null;
                             }
@@ -164,78 +172,71 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: MaterialButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20.0))),
-                            elevation: 5.0,
-                            height: 40,
-                            onPressed: () {
-                              setState(() {
-                                visible = true;
-                              });
-                              signIn(emailController.text,
-                                  passwordController.text);
-                            },
-                            child: const Text(
-                              "Iniciar Sesión",
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.white),
-                            ),
-                            color: colorNav,
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    120), // Agregar más espacio en los lados
-                          ),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          width: MediaQuery.of(context).size.width,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20.0),
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              MaterialButton(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20.0),
+                                  ),
+                                ),
+                                elevation: 5.0,
+                                height: 40,
+                                minWidth:
+                                    150, // Modificar la propiedad para ajustar al ancho de la pantalla
+                                onPressed: () {
+                                  setState(() {
+                                    visible = true;
+                                  });
+                                  signIn(
+                                    emailController.text,
+                                    passwordController.text,
+                                  );
+                                },
+                                color: colorNav,
+                                child: const Text(
+                                  'Logeate',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              MaterialButton(
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20.0),
+                                  ),
+                                ),
+                                elevation: 5.0,
+                                height: 40,
+                                minWidth:
+                                    150, // Modificar la propiedad para ajustar al ancho de la pantalla
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Register(),
                                     ),
-                                  ),
-                                  elevation: 5.0,
-                                  height: 40,
-                                  onPressed: () {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => Register(),
-                                      ),
-                                    );
-                                  },
-                                  color: colorAppBar,
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 135),
-                                  child: Text(
-                                    "Registrar",
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.white),
+                                  );
+                                },
+                                color: colorAppBar,
+                                child: const Text(
+                                  'Registrate',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -250,7 +251,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void route() {
     User? user = FirebaseAuth.instance.currentUser;
-    var kk = FirebaseFirestore.instance
+    final kk = FirebaseFirestore.instance
         .collection('users')
         .doc(user!.uid)
         .get()

@@ -124,6 +124,45 @@ class SettingsCards extends StatelessWidget {
             ),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8, left: 8, right: 8, bottom: 6),
+          child: Card(
+            child: ListTile(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text('Confirmar eliminación de cuenta'),
+                    content:
+                        Text('¿Estás seguro que quieres eliminar tu cuenta?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text('Cancelar'),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          // Llama a la función para eliminar la cuenta
+                          await eliminarCuenta();
+                          Navigator.pop(context);
+                        },
+                        child: Text('Eliminar cuenta'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              title: Container(
+                padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                child: Text(
+                  'Eliminar cuenta',
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -171,8 +210,8 @@ class SettingsCards extends StatelessWidget {
 
     // add asset image, IMPORTANT! Using assets will not work in Test/Run mode you can only test it using Web Publishing mode or using an actual device!
     /*final bytes =
-      (await rootBundle.load('assets/images/demo.png')).buffer.asUint8List();
-  final image = pw.MemoryImage(bytes);*/
+        (await rootBundle.load('assets/images/demo.png')).buffer.asUint8List();
+    final image = pw.MemoryImage(bytes);*/
 
     pdf.addPage(
       pw.Page(
@@ -253,5 +292,17 @@ class SettingsCards extends StatelessWidget {
 
     await Printing.layoutPdf(
         onLayout: (PdfPageFormat format) async => pdfSaved);
+  }
+}
+
+Future<void> eliminarCuenta() async {
+  try {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await user.delete();
+      await FirebaseAuth.instance.signOut();
+    }
+  } catch (e) {
+    print('Error al eliminar la cuenta: $e');
   }
 }
